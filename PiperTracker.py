@@ -73,6 +73,16 @@ def query():
 ### MENU OPTIONS
 # Boxes for date, food type, Benedryl (AM, PM, Both, None), Mood, Poo
 
+'''
+Perhaps there is a way to modularize this portion by making classes for the OptionMenu's that are very similar...
+They all have: 
+something =StringVar()
+something.set(first index item)
+somethingelse = OptionMenu(etc.)
+somethingelse.grid(row and column)
+'''
+
+
 month_options = ["month", *range(1, 13, 1)]
 day_options = ["day", *range(1,31)]
 year_options = ["year", *range(2019, 2022)]
@@ -142,13 +152,13 @@ energy_clicked.set(energy_options[0])
 energy = OptionMenu(root, energy_clicked, *energy_options)
 energy.grid(row = 5, column = 1)
 
-poo_options = ["Number of Poos:", *range(0,9,1)]
+poo_options = ["Number of Poos: (0-10)", *range(0,11)]
 poo_clicked = StringVar()
 poo_clicked.set(poo_options[0])
 poo_count = OptionMenu(root, poo_clicked, *poo_options)
 poo_count.grid(row = 6, column = 1)
 
-poo_q_options = ["Poo Quality (0 bad poo poo - 10 solid dooky)", *range(0,11,1)]
+poo_q_options = ["Poo Quality (0 bad poo poo - 10 solid dooky)", *range(0,11)]
 poo_q_clicked = StringVar()
 poo_q_clicked.set(poo_q_options[0])
 poo_quality = OptionMenu(root, poo_q_clicked, *poo_q_options)
