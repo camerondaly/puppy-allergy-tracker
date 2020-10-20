@@ -4,7 +4,7 @@ import datetime
 
 root = Tk()
 root.title('Pet Allergy Tracker App')
-root.geometry("500x400")
+root.geometry("600x400")
 
 
 ### DATABASE
@@ -20,7 +20,7 @@ def submit():
     # Create a cursor (let's call it 'c')
     c = conn.cursor()
     #Insert selections into table
-    c.execute("INSERT INTO Piper VALUES (:month, :day, :year, :food, :benadryl, :outside, :energy, :poo_count, :poo_quality, :bumpiness, :itching_paws)",
+    c.execute("INSERT INTO Piper VALUES (:month, :day, :year, :food, :benadryl, :outside, :energy, :poo_count, :poo_quality, :itching_paws, :bumpiness, :rawspots, :lounge)",
             {
                 'month': month_clicked.get(),
                 'day': day_clicked.get(),
@@ -31,8 +31,10 @@ def submit():
                 'energy': energy_clicked.get(),
                 'poo_count': poo_clicked.get(),
                 'poo_quality': poo_q_clicked.get(),
+                'itching_paws': itching_paws_clicked.get(),
                 'bumpiness': bumpiness_clicked.get(),
-                'itching_paws': itching_paws_clicked.get()
+                'rawspots': raw_spots_clicked.get(),
+                'lounge': lounge_clicked.get()
             }
     )
     # Commit changes and close
@@ -50,6 +52,8 @@ def submit():
     poo_q_clicked.set(poo_q_options[0])
     itching_paws_clicked.set(itching_paws_options[0])
     bumpiness_clicked.set(bumpiness_options[0])
+    raw_spots_clicked.set(raw_spots_options[0])
+    lounge_clicked.set(lounge_options[0])
 
 
 
@@ -83,9 +87,9 @@ somethingelse.grid(row and column)
 '''
 
 
-month_options = ["month", *range(1, 13, 1)]
-day_options = ["day", *range(1,31)]
-year_options = ["year", *range(2019, 2022)]
+month_options = ["Month", *range(1, 13, 1)]
+day_options = ["Day", *range(1,31)]
+year_options = ["Year", *range(2019, 2022)]
 month_clicked = StringVar()
 month_clicked.set(month_options[0])
 month = OptionMenu(root, month_clicked, *month_options)
@@ -139,8 +143,8 @@ energy_options = [
     "Describe energy levels:",
     "Lethargic",
     "Sleepy",
-    "Calm",
-    "Normal and chiiiilll",
+    "Acting weird. Low energy.",
+    "Normal (:",
     "Playful",
     "Hyper!!!",
     "Acting like she did that one time when she ate a bag of coffee beans",
@@ -176,10 +180,21 @@ bumpiness_clicked.set(bumpiness_options[0])
 bumpiness = OptionMenu(root, bumpiness_clicked, *bumpiness_options)
 bumpiness.grid(row = 9, column = 1)
 
+raw_spots_options = ["Number of raw spots (0-10):", *range(0,11)]
+raw_spots_clicked = StringVar()
+raw_spots_clicked.set(raw_spots_options[0])
+raw_spots = OptionMenu(root, raw_spots_clicked, *raw_spots_options)
+raw_spots.grid(row = 10, column = 1)
+
+lounge_options = ["About how many minutes did Piper spend lounging in the grass today?", *range(0,100, 10)]
+lounge_clicked = StringVar()
+lounge_clicked.set(lounge_options[0])
+lounge = OptionMenu(root, lounge_clicked, *lounge_options)
+lounge.grid(row = 11, column = 1)
 
 # Create a submit button
 submit_btn = Button(root, text = "Add Record to the Database", command = submit)
-submit_btn.grid(row = 10, column = 1, columnspan = 2, pady = 10, padx = 10, ipadx = 100)
+submit_btn.grid(row = 12, column = 1, columnspan = 2, pady = 10, padx = 10, ipadx = 100)
 
 # Create a Query Button
 '''
