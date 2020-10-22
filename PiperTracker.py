@@ -4,7 +4,7 @@ import datetime
 
 root = Tk()
 root.title('Pet Allergy Tracker App')
-root.geometry("600x400")
+root.geometry("600x450")
 
 
 ### DATABASE
@@ -20,7 +20,7 @@ def submit():
     # Create a cursor (let's call it 'c')
     c = conn.cursor()
     #Insert selections into table
-    c.execute("INSERT INTO Piper VALUES (:month, :day, :year, :food, :benadryl, :outside, :energy, :poo_count, :poo_quality, :itching_paws, :bumpiness, :rawspots, :lounge)",
+    c.execute("INSERT INTO Piper VALUES (:month, :day, :year, :food, :benadryl, :outside, :energy, :poo_count, :poo_quality, :itching_paws, :bumpiness, :rawspots, :lounge, :bugspray)",
             {
                 'month': month_clicked.get(),
                 'day': day_clicked.get(),
@@ -34,7 +34,8 @@ def submit():
                 'itching_paws': itching_paws_clicked.get(),
                 'bumpiness': bumpiness_clicked.get(),
                 'rawspots': raw_spots_clicked.get(),
-                'lounge': lounge_clicked.get()
+                'lounge': lounge_clicked.get(),
+                'bugspray': bugspray_clicked.get()
             }
     )
     # Commit changes and close
@@ -192,9 +193,15 @@ lounge_clicked.set(lounge_options[0])
 lounge = OptionMenu(root, lounge_clicked, *lounge_options)
 lounge.grid(row = 11, column = 1)
 
+bugspray_options = ["Did Piper have Bug Spray on today when she was outside?", "Yes", "No"]
+bugspray_clicked = StringVar()
+bugspray_clicked.set(bugspray_options[0])
+bugspray = OptionMenu(root, bugspray_clicked, *bugspray_options)
+bugspray.grid(row = 12, column = 1)
+
 # Create a submit button
 submit_btn = Button(root, text = "Add Record to the Database", command = submit)
-submit_btn.grid(row = 12, column = 1, columnspan = 2, pady = 10, padx = 10, ipadx = 100)
+submit_btn.grid(row = 13, column = 1, columnspan = 2, pady = 30, padx = 30, ipadx = 100)
 
 # Create a Query Button
 '''
