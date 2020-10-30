@@ -17,7 +17,7 @@ c = conn.cursor()
 def submit():
     # Create a database or connect to one
     conn = sqlite3.connect('piperlog.db')
-    # Create a cursor (let's call it 'c')
+    # Create a cursor 
     c = conn.cursor()
     #Insert selections into table
     c.execute("INSERT INTO Piper VALUES (:month, :day, :year, :food, :benadryl, :outside, :energy, :poo_count, :poo_quality, :itching_paws, :bumpiness, :rawspots, :lounge, :bugspray)",
@@ -55,37 +55,11 @@ def submit():
     bumpiness_clicked.set(bumpiness_options[0])
     raw_spots_clicked.set(raw_spots_options[0])
     lounge_clicked.set(lounge_options[0])
-
-
-
-# Query Function:
-def query():
-    # Create a database or connect to one
-    conn = sqlite3.connect('piperlog.db')
-    # Create a cursor (let's call it 'c')
-    c = conn.cursor()
-    # Query the db!
-    c.execute("SELECT *, oid FROM Piper")
-    records = c.fetchall()
-
-    # Commit changes and close
-    conn.commit()
-    conn.close()
-    return
-
+    bugspray_clicked.set(bugspray_options[0])
 
 
 ### MENU OPTIONS
-# Boxes for date, food type, Benedryl (AM, PM, Both, None), Mood, Poo
-
-'''
-Perhaps there is a way to modularize this portion by making classes for the OptionMenu's that are very similar...
-They all have: 
-something =StringVar()
-something.set(first index item)
-somethingelse = OptionMenu(etc.)
-somethingelse.grid(row and column)
-'''
+# Boxes for date, food type, Benedryl (AM, PM, Both, None), Mood, Poos
 
 
 month_options = ["Month", *range(1, 13, 1)]
@@ -163,7 +137,7 @@ poo_clicked.set(poo_options[0])
 poo_count = OptionMenu(root, poo_clicked, *poo_options)
 poo_count.grid(row = 6, column = 1)
 
-poo_q_options = ["Poo Quality (0 bad poo poo - 10 solid dooky)", *range(0,11)]
+poo_q_options = ["Poo Quality (0 soft - 10 healthy)", *range(0,11)]
 poo_q_clicked = StringVar()
 poo_q_clicked.set(poo_q_options[0])
 poo_quality = OptionMenu(root, poo_q_clicked, *poo_q_options)
@@ -203,11 +177,6 @@ bugspray.grid(row = 12, column = 1)
 submit_btn = Button(root, text = "Add Record to the Database", command = submit)
 submit_btn.grid(row = 13, column = 1, columnspan = 2, pady = 30, padx = 30, ipadx = 100)
 
-# Create a Query Button
-'''
-query_btn = Button(root, text = "Show Records", command = query)
-query_btn.grid(row = 11, column = 1, columnspan = 2, pady = 10, padx = 10, ipadx=100)
-'''
 
 # Commit changes and close
 conn.commit()
